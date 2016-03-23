@@ -48,13 +48,28 @@ namespace PhotoLoader
 
             IRestResponse response = Client.Execute(request);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
                 Token = JsonConvert.DeserializeObject<AuthResponse>(response.Content);
 
                 Console.WriteLine(Token.Token.AccessToken);
+
+                request = new RestRequest(PhotoUrl, Method.POST);
+                request.AddParameter("access_token", Token.Token.AccessToken);
+                request.AddFile("photo", "C:\\Users\\User\\Desktop\\image-67f4f42ddb226dd6a23b487cf22a6362c0652128922f2de051567a497fdbf536-V.jpeg");
+
+                response = Client.Execute(request);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                    Console.WriteLine("PhotoPostSuccess!");
+                } else {
+                    Console.WriteLine("PhotoPostfailed: {0}", response.Content);
+                }
+            } else {
+                Console.WriteLine("AuthFailed! {0}", response.Content);
             }
 
-
+            Console.ReadKey(true);
         }
     }
 }
