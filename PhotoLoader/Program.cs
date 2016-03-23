@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
+using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft;
 using Newtonsoft.Json.Serialization;
@@ -39,7 +40,7 @@ namespace PhotoLoader
             new Program().Start();
         }
 
-        private void Start() {
+        /*private void Start() {
             Client = new RestClient(BaseUrl);
 
             IRestRequest request = new RestRequest(LoginUrl, Method.POST);
@@ -48,15 +49,14 @@ namespace PhotoLoader
 
             IRestResponse response = Client.Execute(request);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
+            if (response.StatusCode == System.Net.HttpStatusCode.OK) {
                 Token = JsonConvert.DeserializeObject<AuthResponse>(response.Content);
 
                 Console.WriteLine(Token.Token.AccessToken);
 
                 request = new RestRequest(PhotoUrl, Method.POST);
                 request.AddParameter("access_token", Token.Token.AccessToken);
-                request.AddFile("photo", "C:\\Users\\User\\Desktop\\image-67f4f42ddb226dd6a23b487cf22a6362c0652128922f2de051567a497fdbf536-V.jpeg");
+                request.AddFile("photo", "image-67f4f42ddb226dd6a23b487cf22a6362c0652128922f2de051567a497fdbf536-V.jpeg");
 
                 response = Client.Execute(request);
 
@@ -68,6 +68,18 @@ namespace PhotoLoader
             } else {
                 Console.WriteLine("AuthFailed! {0}", response.Content);
             }
+
+            Console.ReadKey(true);
+        }*/
+
+        private void Start() {
+            Client = new RestClient(BaseUrl);
+            Client.Authenticator = new HGApi.HGAuth();
+
+            IRestRequest test = new RestRequest("comments/");
+            Client.Execute(test);
+
+            Console.WriteLine(((HGApi.HGAuth)Client.Authenticator).User.Token.AccessToken);
 
             Console.ReadKey(true);
         }

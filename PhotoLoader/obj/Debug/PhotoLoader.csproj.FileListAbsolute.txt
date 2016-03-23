@@ -8,3 +8,13 @@ d:\VS\Projects\PhotoLoader\PhotoLoader\bin\Debug\RestSharp.xml
 d:\VS\Projects\PhotoLoader\PhotoLoader\obj\Debug\PhotoLoader.csprojResolveAssemblyReference.cache
 d:\VS\Projects\PhotoLoader\PhotoLoader\obj\Debug\PhotoLoader.exe
 d:\VS\Projects\PhotoLoader\PhotoLoader\obj\Debug\PhotoLoader.pdb
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\Debug\PhotoLoader.exe.config
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\obj\Debug\PhotoLoader.exe
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\obj\Debug\PhotoLoader.pdb
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\Debug\PhotoLoader.exe
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\Debug\PhotoLoader.pdb
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\Debug\Newtonsoft.Json.dll
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\Debug\RestSharp.dll
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\Debug\Newtonsoft.Json.xml
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\Debug\RestSharp.xml
+D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\obj\Debug\PhotoLoader.csprojResolveAssemblyReference.cache
