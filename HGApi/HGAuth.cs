@@ -8,7 +8,7 @@ using RestSharp.Authenticators;
 using PhotoLoader.HGApi.Models;
 using Newtonsoft.Json;
 
-namespace PhotoLoader.HGApi {
+namespace HGApi {
     class HGAuth : IAuthenticator {
         public User User { get; private set; }
         public string Email { get; set; } = "2@mail.ru";
@@ -22,7 +22,7 @@ namespace PhotoLoader.HGApi {
             request.AddParameter("access_token", User.Token.AccessToken);
         }
 
-        private void Login(IRestClient client) {
+        public void Login(IRestClient client) {
             IRestRequest request = new RestRequest("login/", Method.POST);
             request.AddParameter("auth_email", Email);
             request.AddParameter("auth_password", Password);
@@ -42,8 +42,23 @@ namespace PhotoLoader.HGApi {
             }
         }
 
-        private void ReLogin(IRestClient client) {
+        public void ReLogin(IRestClient client) {
+            IRestRequest request = new RestRequest("relogin/", Method.POST);
+            request.AddParameter("refresh_token", User.Token.RefreshToken);
 
+            client.Authenticator = null;
+            IRestResponse response = client.Execute(request);
+            client.Authenticator = this;
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                User = JsonConvert.DeserializeObject<User>(response.Content);
+            } else {
+                if (response.ErrorException != null) {
+                    throw response.ErrorException;
+                } else {
+                    throw new System.Net.WebException(response.Content);
+                }
+            }
         }
     }
 }

@@ -18,3 +18,5 @@ D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\De
 D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\Debug\Newtonsoft.Json.xml
 D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\bin\Debug\RestSharp.xml
 D:\Work\happy-giraffe\photo-loader\repository\HGPhotoLoadTest\PhotoLoader\obj\Debug\PhotoLoader.csprojResolveAssemblyReference.cache
+D:\VS\Projects\PhotoLoader\PhotoLoader\bin\Debug\HGApi.dll
+D:\VS\Projects\PhotoLoader\PhotoLoader\bin\Debug\HGApi.pdb

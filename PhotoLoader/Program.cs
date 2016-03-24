@@ -3,85 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft;
 using Newtonsoft.Json.Serialization;
+using HGApi;
+using HGApi.Models;
 
 namespace PhotoLoader
 {
-    [JsonObject(MemberSerialization.OptIn)]
-    struct AuthResponse {
-        [JsonProperty("token")]
-        public Token Token { get; set; }
-    }
-
-    [JsonObject(MemberSerialization.OptIn)]
-    struct Token {
-        [JsonProperty("access_token")]
-        public string AccessToken { get; set; }
-
-        [JsonProperty("refresh_token")]
-        public string RefreshToken { get; set; }
-    }
-
-
     class Program {
-        private string BaseUrl { get; set; } = "http://giraffe.code-geek.ru/v1_4/api/";
-        private string PhotoUrl { get; set; } = "photo/";
-        private string LoginUrl { get; set; } = "login/";
-
-        private AuthResponse Token;
-
-        private IRestClient Client { get; set; }
+        private Client Client { get; set; }
 
         static void Main(string[] args) {
-            new Program().Start();
+            new Program().Init();
         }
 
-        /*private void Start() {
-            Client = new RestClient(BaseUrl);
+        private void Init() {
+            Client = new Client();
 
-            IRestRequest request = new RestRequest(LoginUrl, Method.POST);
-            request.AddParameter("auth_email", "2@mail.ru");
-            request.AddParameter("auth_password", "test");
-
-            IRestResponse response = Client.Execute(request);
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK) {
-                Token = JsonConvert.DeserializeObject<AuthResponse>(response.Content);
-
-                Console.WriteLine(Token.Token.AccessToken);
-
-                request = new RestRequest(PhotoUrl, Method.POST);
-                request.AddParameter("access_token", Token.Token.AccessToken);
-                request.AddFile("photo", "image-67f4f42ddb226dd6a23b487cf22a6362c0652128922f2de051567a497fdbf536-V.jpeg");
-
-                response = Client.Execute(request);
-
-                if (response.StatusCode == System.Net.HttpStatusCode.OK) {
-                    Console.WriteLine("PhotoPostSuccess!");
-                } else {
-                    Console.WriteLine("PhotoPostfailed: {0}", response.Content);
-                }
-            } else {
-                Console.WriteLine("AuthFailed! {0}", response.Content);
+            for (int i = 0; i < 100; i++) {
+                new Thread(Start).Start();
             }
 
             Console.ReadKey(true);
-        }*/
+        }
 
         private void Start() {
-            Client = new RestClient(BaseUrl);
-            Client.Authenticator = new HGApi.HGAuth();
+            List<Task> tasks = new List<Task>();
 
-            IRestRequest test = new RestRequest("comments/");
-            Client.Execute(test);
+            for (int i = 0; i < 100; i++) {
+                //tasks.Add(UploadPhoto);
+                Task.Run(UploadPhoto);
+            }
 
-            Console.WriteLine(((HGApi.HGAuth)Client.Authenticator).User.Token.AccessToken);
+            Task.WaitAll(tasks.ToArray());
+        }
 
-            Console.ReadKey(true);
+        private async Task UploadPhoto() {
+            Photo photo = await Client.PostPhotoAsync("image-67f4f42ddb226dd6a23b487cf22a6362c0652128922f2de051567a497fdbf536-V.jpeg");
+
+            if (photo != null) {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("UploadSuccess!");
+                Console.ResetColor();
+            }
         }
     }
 }
